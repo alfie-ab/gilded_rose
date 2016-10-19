@@ -20,6 +20,8 @@ class GildedRose
     end
   end
 
+  private
+
   def normal_item(item)
     if item.sell_in < 0
       item.quality -= 2
