@@ -13,7 +13,7 @@ class GildedRose
       elsif item.name == "Backstage passes to a TAFKAL80ETC concert"
         concert_calculator(item)
       elsif item.name == "Sulfuras, Hand of Ragnaros"
-        sulfaras_calculator(item)
+        return item
       else
         normal_item(item)
       end
@@ -46,10 +46,6 @@ class GildedRose
     elsif item.sell_in < 0
       item.quality = 0
     end
-  end
-
-  def sulfaras_calculator(item)
-
   end
 
   def reduce_quality(item)
