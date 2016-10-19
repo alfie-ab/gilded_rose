@@ -21,21 +21,12 @@ class GildedRose
   end
 
   def normal_item(item)
-    if item.quality > 50
-      raise "Quality too high"
-    else
-      item.quality -= 1
-      item.sell_in -= 1
-    end
+    reduce_quality(item)
   end
 
   def brie_calculator(item)
-    if item.quality > 50
-      raise "Quality too high"
-    else
-      item.quality += 1
-      item.sell_in -= 1
-    end
+    reduce_quality(item)
+    item.quality += 2
   end
 
   def concert_calculator(item)
@@ -58,6 +49,15 @@ class GildedRose
 
   def sulfaras_calculator(item)
 
+  end
+
+  def reduce_quality(item)
+    if item.quality > 50
+      raise "Quality too high"
+    else
+      item.quality -= 1 if item.quality > 0
+      item.sell_in -= 1
+    end
   end
 
 

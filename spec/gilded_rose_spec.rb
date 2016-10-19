@@ -23,16 +23,16 @@ describe GildedRose do
       expect{GildedRose.new(items).sort()}.to raise_error("Quality too high")
     end
 
-    xit "ensures that quality of item is never negative" do
+    it "ensures that quality of item is never negative" do
       items = [Item.new("banana", SELL_IN, NEGATIVE_QUALITY)]
-      GildedRose.new(items).update_quality()
+      GildedRose.new(items).sort()
       expect(items[0].quality).to eq NEGATIVE_QUALITY
       expect(items[0].sell_in).to eq SELL_IN - 1
     end
 
     xit "ensures that quality of item degrades twice as fast after sell by date" do
       items = [Item.new("banana", SELL_BY_DATE, QUALITY)]
-      GildedRose.new(items).update_quality()
+      GildedRose.new(items).sort()
       expect(items[0].quality).to eq 6
       expect(items[0].sell_in).to eq SELL_BY_DATE - 1
     end
