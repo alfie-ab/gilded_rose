@@ -30,8 +30,8 @@ describe GildedRose do
       expect(items[0].sell_in).to eq SELL_IN - 1
     end
 
-    xit "ensures that quality of item degrades twice as fast after sell by date" do
-      items = [Item.new("banana", SELL_BY_DATE, QUALITY)]
+    it "ensures that quality of item degrades twice as fast after sell by date" do
+      items = [Item.new("banana", (SELL_BY_DATE - 1), QUALITY)]
       GildedRose.new(items).sort()
       expect(items[0].quality).to eq 6
       expect(items[0].sell_in).to eq SELL_BY_DATE - 1
