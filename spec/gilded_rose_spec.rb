@@ -3,7 +3,10 @@ require 'gilded_rose'
 describe GildedRose do
 
   QUALITY = 8
+  NEGATIVE_QUALITY = 0
   SELL_IN = 4
+  SELL_IN_BETWEEN_5_AND_10 = 7
+  SELL_BY_DATE = 0
 
   describe "#update_quality" do
     it "does not change the name" do
@@ -34,24 +37,24 @@ describe GildedRose do
     end
 
     it "ensures that backstage passes increase by 2 with over 5 days and under 10 days left" do
-      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", (SELL_IN + 2), QUALITY)]
+      items = [Item.new("Backstage passes to a TAFKAL80ETC concert", SELL_IN_BETWEEN_5_AND_10, QUALITY)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq QUALITY + 2
-      expect(items[0].sell_in).to eq SELL_IN + 1
+      expect(items[0].sell_in).to eq SELL_IN_BETWEEN_5_AND_10 - 1
     end
 
     it "ensures that quality of item is never negative" do
-      items = [Item.new("banana", SELL_IN, (QUALITY - 8))]
+      items = [Item.new("banana", SELL_IN, NEGATIVE_QUALITY)]
       GildedRose.new(items).update_quality()
-      expect(items[0].quality).to eq 0
+      expect(items[0].quality).to eq NEGATIVE_QUALITY
       expect(items[0].sell_in).to eq SELL_IN - 1
     end
 
     it "ensures that quality of item degrades twice as fast after sell by date" do
-      items = [Item.new("banana", (SELL_IN - 4), QUALITY)]
+      items = [Item.new("banana", SELL_BY_DATE, QUALITY)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 6
-      expect(items[0].sell_in).to eq SELL_IN - 5
+      expect(items[0].sell_in).to eq SELL_BY_DATE - 1
     end
 
 
